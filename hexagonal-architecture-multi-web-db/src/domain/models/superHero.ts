@@ -10,4 +10,16 @@ export class SuperHero {
     this.name = name;
     this.powers = powers;
   }
+
+  getId(): UUID {
+    return this.id;
+  }
+
+  getName(): string {
+    return this.name;
+  }
+
+  getPowers(): Set<string> {
+    return this.powers;
+  }
 }

@@ -1,0 +1,121 @@
+openapi: 3.0.4
+info:
+  title: Super Heroes - Contract first API
+  description: |-
+    This is a Contract-first API based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io).
+
+  termsOfService: https://super-heroes.fr/termes/
+  contact:
+    email: fvandenbulcke@super-heroes.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Learn more about superheroes
+  url: https://super-heroes.fr
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: heroes
+    description: Super heroes management
+paths:
+  /heroes:
+    get:
+      tags:
+        - heroes
+      summary: Get all the super heroes
+      operationId: getAllSuperHeroes
+      responses:
+        "200":
+          description: The super heroes.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfHeroes"
+        "500":
+          description: An error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erreur"
+
+  /heroes/{heroId}:
+    get:
+      tags:
+        - heroes
+      summary: Get the informations about a super hero
+      operationId: getSuperHeroInformations
+      parameters:
+        - name: heroId
+          description: Super hero identifier
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        "200":
+          description: The super héro with the given identifier.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Hero"
+        "404":
+          description: The super hero with the given identifier doasnt exist.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erreur"
+              example:
+                code: 404
+                message: Hero can't be found
+        "500":
+          description: An error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erreur"
+
+components:
+  schemas:
+    ArrayOfHeroes:
+      description: List of super Heroes
+      type: array
+      items:
+        $ref: "#/components/schemas/Hero"
+    Hero:
+      description: Hero with its informations.
+      type: object
+      properties:
+        id:
+          description: Identifier of the hero
+          type: string
+          format: uuid
+        name:
+          description: Name of the hero
+          example: batman
+          type: string
+        powers:
+          description: Powers of the hero
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - name
+        - powers
+    Erreur:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+      example:
+        code: 503
+        message: Serveur en maintenance, merci d'essayer de nouveau plus tard.

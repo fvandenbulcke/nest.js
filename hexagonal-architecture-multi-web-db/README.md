@@ -31,6 +31,18 @@ L'architecture hexagonale offre une **flexibilité exceptionnelle** pour :
 2. **Application** : Adaptateurs entrants (web, CLI, events...)
 3. **Infrastructure** : Adaptateurs sortants (DB, APIs externes, files...)
 
+### 📝​ Approche en contract first
+
+L'implémentation de l'API suit la démarche **contract first** qui consiste à générer son contrat à partir d'une spécification OpenApi dans le fichier [super-heroes.api.spec.yaml](specs/super-heroes.api.spec.yaml).
+
+La commande suivante permet de générer le contrat de l'API grâce à la librairie [nest-openapi-code-generator](https://github.com/ganesanarun/nest-openapi-code-generator) :
+
+```bash
+$ yarn run generate:api
+```
+
+La documentation est disponible via l'url `http://localhost:3000/swagger`.
+
 ## � Configuration dynamique par profils
 
 L'activation du choix de **framework web** et **couche de persistance** se fait via une simple variable d'environnement `profiles` passer en ligne de commande.
@@ -82,11 +94,6 @@ $ profiles=express,mongodb yarn run start:prod
 # Mode production avec profils pour windows
 $ set profiles=express,mongodb && yarn run start:prod
 ```
-
-### API disponible
-
-la documentation OpenApi de l'API est disponible sur `http://localhost:3000` :
-
 
 ## 🧪 Tests
 

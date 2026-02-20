@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "generate:api": "npx openapi-generate --output ./src/application/web/generated",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:dev:windows": "set PROFILE=memory &&nest start --watch",
@@ -24,6 +25,7 @@
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.2.6",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -33,6 +35,7 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
+    "@snow-tzu/nest-openapi-code-generator": "^0.0.14",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.3.0",
