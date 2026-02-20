@@ -4,7 +4,9 @@ import {
   Optional,
   SuperheroRepository,
 } from '@domain/ports/out/superheroRepository';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class InMemorySuperheroRepository implements SuperheroRepository {
   private readonly superheroes: Map<UUID, SuperHero> = new Map();
 

@@ -20,9 +20,13 @@ export class SuperHeroDocument extends Document {
   @Prop({ default: Date.now })
   createdAt: Date;
 
-  toDomain(): SuperHero {
-    return new SuperHero(this.id, this.name, new Set());
-  }
+  toDomain: () => SuperHero;
 }
 
 export const SuperHeroSchema = SchemaFactory.createForClass(SuperHeroDocument);
+
+SuperHeroSchema.methods.toDomain = function (
+  this: SuperHeroDocument,
+): SuperHero {
+  return new SuperHero(this._id as any, this.name, new Set());
+};

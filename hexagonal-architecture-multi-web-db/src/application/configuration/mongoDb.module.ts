@@ -4,15 +4,16 @@ import {
   SuperHeroDocument,
   SuperHeroSchema,
 } from '@/infrastructure/ports/mongoDb/super.hero.schema';
-import { MongoDbSuperheroRepository } from '@/infrastructure/ports/mongoDb/mongoDbSuperheroRepository';
 
 @Module({
   imports: [
+    MongooseModule.forRoot(
+      `mongodb://${process.env.DB_CONNEXION}?authSource=admin`,
+    ),
     MongooseModule.forFeature([
       { name: SuperHeroDocument.name, schema: SuperHeroSchema },
     ]),
   ],
-  providers: [MongoDbSuperheroRepository],
-  exports: [MongoDbSuperheroRepository],
+  exports: [MongooseModule],
 })
 export class MongoDbModule {}

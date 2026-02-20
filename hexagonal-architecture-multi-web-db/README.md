@@ -57,7 +57,7 @@ Les profils disponibles sont:
 | mongodb  | persistance  | avec une DB mongoDB   |
 | postgres | persistance  | avec un DB postgreSQL |
 
-Ils sont utilisés dans le fichier [beans.ts](src/application/configuration/beans.ts) pour sélectionner automatiquement les implémentations voulues.
+Ils sont utilisés dans le fichier [database.module](src/application/configuration/database.module.ts) pour sélectionner automatiquement l'implémentation voulue pour la persistence.
 
 ## 🚀 Installation et démarrage
 
@@ -83,16 +83,10 @@ $ cp .env.example .env
 $ yarn run start
 
 # Mode watch avec profils personnalisés
-$ profiles=fastify,postgresql yarn run start:dev
-
-# Mode watch avec profils personnalisés pour windows
-$ set profiles=fastify,postgresql && yarn run start:dev
+$ yarn run start:dev
 
 # Mode production avec profils
-$ profiles=express,mongodb yarn run start:prod
-
-# Mode production avec profils pour windows
-$ set profiles=express,mongodb && yarn run start:prod
+$ yarn run start:prod
 ```
 
 ## 🧪 Tests
@@ -132,12 +126,24 @@ Le domaine ne dépend de rien. Les autres couches dépendent du domaine via les 
 
 ### Injection de dépendances
 
-La configuration (module NestJS) câble les adaptateurs aux ports :
+La configuration (module NestJS) câble les adaptateurs aux ports avec `DatabaseModule.forRoot()` qui permet d'importer dynamiquement les beans nécessaires à la persistance de la données et via l'usage d'une factory pour être agnostique du type de l'implémentation:
 
 ```typescript
+const repositoryName = 'SuperheroRepository';
+
 {
-  provide: 'GetSuperheroUseCasePort',
-  useValue: getSuperheroUseCase, // Facilement remplaçable !
+  imports: [DatabaseModule.forRoot(repositoryName)],
+  controllers: [SuperHeroController],
+  providers: [
+    {
+      provide: 'ListSuperheroesUseCasePort',
+      useFactory: (superheroRepository: SuperheroRepository) => {
+        return new ListSuperheroesUseCase(superheroRepository);
+      },
+      inject: [repositoryName],
+    },
+    ....
+  ],
 }
 ```
 

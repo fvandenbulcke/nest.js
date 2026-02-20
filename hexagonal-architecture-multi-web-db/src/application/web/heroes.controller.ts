@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+import { Controller, Inject } from '@nestjs/common';
 import type { UUID } from 'node:crypto';
 import { SuperHero } from '@domain/models/superHero';
 import type {
@@ -19,17 +19,9 @@ export class SuperHeroController extends SuperHeroesApiSpecControllerBase {
     super();
   }
 
-  //@Get()
   async getAllSuperHeroes(): Promise<SuperHero[]> {
     return this.listSuperheroesUseCasePort.execute();
   }
-
-  /* @Get(':id')
-  async getSuperHeroById(
-    @Param() params: { id: UUID },
-  ): Promise<SuperHero | undefined> {
-    return this.getSuperheroUseCasePort.execute(params.id);
-  } */
 
   getSuperHeroInformations(heroId: string): Promise<HeroDto> {
     return this.getSuperheroUseCasePort

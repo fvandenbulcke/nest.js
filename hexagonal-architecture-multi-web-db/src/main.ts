@@ -1,3 +1,4 @@
+import './env.loader';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './application/configuration/app.module';
 import process from 'node:process';

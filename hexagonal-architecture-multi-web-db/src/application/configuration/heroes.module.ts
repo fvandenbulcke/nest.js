@@ -1,18 +1,29 @@
 import { Module } from '@nestjs/common';
 import { SuperHeroController } from '../web/heroes.controller';
-import { getSuperheroUseCase, listSuperheroesUseCase } from './beans';
+import { SuperheroRepository } from '@domain/ports/out/superheroRepository';
+import { ListSuperheroesUseCase } from '@domain/usecases/listSuperheroesUseCase';
+import { GetSuperheroUseCase } from '@domain/usecases/getSuperheroUseCase';
+import { DatabaseModule } from './database.module';
+
+const repositoryName = 'SuperheroRepository';
 
 @Module({
-  imports: [],
+  imports: [DatabaseModule.forRoot(repositoryName)],
   controllers: [SuperHeroController],
   providers: [
     {
       provide: 'ListSuperheroesUseCasePort',
-      useValue: listSuperheroesUseCase,
+      useFactory: (superheroRepository: SuperheroRepository) => {
+        return new ListSuperheroesUseCase(superheroRepository);
+      },
+      inject: [repositoryName],
     },
     {
       provide: 'GetSuperheroUseCasePort',
-      useValue: getSuperheroUseCase,
+      useFactory: (superheroRepository: SuperheroRepository) => {
+        return new GetSuperheroUseCase(superheroRepository);
+      },
+      inject: [repositoryName],
     },
   ],
 })
