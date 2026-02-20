@@ -1,7 +1,7 @@
 import { UUID } from 'node:crypto';
 import { SuperHero } from '@domain/models/superHero';
 
-export type Optional<T> = T | undefined;
+export type Optional<T> = T | null | undefined;
 
 export interface SuperheroRepository {
   findAll(): Promise<SuperHero[]>;
