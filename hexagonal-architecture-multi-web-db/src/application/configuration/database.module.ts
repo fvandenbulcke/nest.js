@@ -1,7 +1,7 @@
 import { DynamicModule, Module, Type } from '@nestjs/common';
 import { MongoDbModule } from './mongoDb.module';
-import { InMemorySuperheroRepository } from '@/infrastructure/ports/inMemorySuperheroRepository';
-import { MongoDbSuperheroRepository } from '@/infrastructure/ports/mongoDb/mongoDbSuperheroRepository';
+import { InMemorySuperheroRepository } from '@/infrastructure/adapters/inMemorySuperheroRepository';
+import { MongoDbSuperheroRepository } from '@/infrastructure/adapters/mongoDb/mongoDbSuperheroRepository';
 
 @Module({})
 export class DatabaseModule {

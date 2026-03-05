@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   SuperHeroDocument,
   SuperHeroSchema,
-} from '@/infrastructure/ports/mongoDb/super.hero.schema';
+} from '@/infrastructure/adapters/mongoDb/super.hero.schema';
 
 @Module({
   imports: [
