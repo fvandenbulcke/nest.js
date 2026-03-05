@@ -6,10 +6,9 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@domain/*": ["./src/domain/*"],
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.test.ts"]
+  "include": ["**/*.ts", "**/*.test.ts", "**/*.spec.ts"]
 }

@@ -1,29 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsString,
-  IsNumber,
-  IsBoolean,
-  IsArray,
-  IsOptional,
-  IsEmail,
-  IsEnum,
-  IsUUID,
-  IsDateString,
-  Min,
-  Max,
-  MinLength,
-  MaxLength,
-  Matches,
-  ValidateNested,
-  IsInt,
-  IsDate,
-  ArrayMaxSize,
-  ArrayMinSize,
-  IsObject,
+import { 
+  IsString, IsNumber, IsBoolean, IsArray, IsOptional, 
+  IsEmail, IsEnum, IsUUID, IsDateString,
+  Min, Max, MinLength, MaxLength, Matches,
+  ValidateNested, IsInt, IsDate, ArrayMaxSize, ArrayMinSize,
+  IsObject
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class ArrayOfHeroesDto {}
+export class ArrayOfHeroesDto {
+}
 
 export class HeroDto {
   /**
@@ -38,19 +24,16 @@ export class HeroDto {
    * Name of the hero
    */
   @IsString()
-  @ApiProperty({ description: 'Name of the hero', example: 'batman' })
+  @ApiProperty({ description: 'Name of the hero', example: "batman" })
   name: string;
 
   /**
    * Powers of the hero
    */
   @IsArray()
-  @ApiProperty({
-    description: 'Powers of the hero',
-    isArray: true,
-    type: () => String,
-  })
+  @ApiProperty({ description: 'Powers of the hero', isArray: true, type: () => String })
   powers: string[];
+
 }
 
 export class ErreurDto {
@@ -61,4 +44,6 @@ export class ErreurDto {
   @IsString()
   @ApiProperty()
   message: string;
+
 }
+
