@@ -28,11 +28,17 @@ export class InMemorySuperheroRepository implements SuperheroRepository {
       ),
     );
   }
-
   findAll(): Promise<SuperHero[]> {
+    throw new Error('Method not implemented.');
+  }
+  findById(id: UUID): Promise<Optional<SuperHero>> {
+    throw new Error('Method not implemented.');
+  }
+
+  /* findAll(): Promise<SuperHero[]> {
     return Promise.resolve(Array.from(this.superheroes.values()));
   }
   findById(id: UUID): Promise<Optional<SuperHero>> {
     return Promise.resolve(this.superheroes.get(id));
-  }
+  } */
 }
